@@ -1,0 +1,6 @@
+1. docker build . -t timestamp
+2. docker tag timestamp username/timestamp
+3. docekr push username/timestamp
+
+4. kubectl create deployment timestamp-string-generator --image=username/timestamp
+5. kubectl logs -f timestamp-string-generator.... (generated pod stuff)

@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timestamp-string
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timestamp-string
+  template:
+    metadata:
+      labels:
+        app: timestamp-string
+    spec:
+      containers:
+        - name: timestamp-string
+          image: aventusm/timestamp
