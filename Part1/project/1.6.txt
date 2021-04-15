@@ -1,0 +1,8 @@
+It is expected that cluster is created by the following command
+    - k3d cluster create --port '8082:30080@agent[0]' -p 8081:80@loadbalancer --agents 2
+
+1. Remove possibly pre-existing service (hashresponse e.g.) to allow new service to be created
+2. kubectl apply -f manifests/deployment.yaml (deploy app at some point...)
+3. kubectl apply -f manifests/service.yaml (use the NodePort service file. Got changed to ClusterIP service / Ingress in later excercise)
+
+App should be accessible through localhost:8082

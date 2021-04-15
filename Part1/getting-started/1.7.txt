@@ -1,0 +1,10 @@
+It is expected that cluster is created by the following command
+    - k3d cluster create --port '8082:30080@agent[0]' -p 8081:80@loadbalancer --agents 2
+
+1. Rebuild docker image and push to <username>/timestamp
+2. kubectl apply -f (separately)
+    2.1. manifests/deployment.yaml
+    2.2. manifests/service.yaml (ClusterIP type Service)
+    2.3. manifests/ingress.yaml
+
+Visit localhost:8081 to see the output of a timestamp and a string generated on original startup

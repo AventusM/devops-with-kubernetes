@@ -1,0 +1,18 @@
+For local data persistance, docker container is required to be changed
+- docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
+
+Slightly messy, but running following manifest files should do the trick
+- kubectl -f apply following
+
+(Order of commands below doesn't really matter, just easier to have things grouped)
+
+DEPLOYMENT / INGRESS / SERVICE / PERSISTENT VOLUME (+CLAIM)
+1. split-getting-started deployment
+2. split-getting-started manifest service
+
+3. persistence-manifests persistentvolume
+4. persistence-manifests persistentvolumeclaim
+
+5. ping-pong deployment
+6. ping-pong manifest ingress
+7. ping-pong manifest service

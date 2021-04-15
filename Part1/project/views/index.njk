@@ -1,0 +1,24 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+  <div style="
+  display:flex;
+  flex-direction:column;
+  ">
+    <img src="picsum.jpg" width="300" height="300" alt="picsum picture of the day"/>
+    <div style="
+    justify-content:center;
+    margin-top:20px;
+    flex-direction:row;
+    ">
+      <input style="width:150px" type="text" id="newtodo" name="newtodo" maxLength="140"/>
+      <button type="button">Create TODO</button>
+    </div>
+    <ul>
+      {% for todo in todos %}
+        <li>{{todo.text}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock %}
