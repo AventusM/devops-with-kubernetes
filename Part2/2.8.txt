@@ -1,0 +1,11 @@
+1. Run the application in the course-exercises namespace
+
+kubectl apply -f following
+- persistence-manifests
+- secret-manifests (used by kube-node-project-backend container in tne project/manifests/deployment.yaml)
+- statefulset-manifests (to run postgres)
+- project/manifests
+
+The application is accessible in localhost:8081
+/ (frontend / project-gateway)
+/todos (project-backend)

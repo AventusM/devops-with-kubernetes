@@ -1,0 +1,14 @@
+# THIS IS A REDUNDANT FILE. ping-pong directory service.yaml has the currently used setup for timestamp-response to fetch data from
+apiVersion: v1
+kind: Service
+metadata:
+  name: global-ping-pong # kubectl exec -it busybox1 -- wget -qO - http://global-ping-pong
+spec:
+  type: ClusterIP
+  selector:
+    app: ping-pong
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3002 # Same as ping-pong-service targetPort (or so it seems, 3002 was applied in the app as well)

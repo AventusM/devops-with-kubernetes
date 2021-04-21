@@ -1,0 +1,14 @@
+Sidenote: It is probably easier to keep using set-context and deploy manifests instead of manually applying namespaces with each kubectl command
+
+1. kubectl apply -f namespace/manifests to create the course-exercises namespace
+
+To create deployments/services in the namespace (2 ways)
+1. kubectl config set-context --current --namespace=course-exercises
+- This allows for kubectl apply -f manifests to start in the set namespace by default
+- NOTE: The required manifests are the same as in 2.1.txt. 
+
+2. kubectl --namespace=course-exercises apply -f manifests explicitly
+
+
+Confirm that pods are running  in "course-exercises" namespace with the following
+- kubectl get pods --namespace=course-exercises

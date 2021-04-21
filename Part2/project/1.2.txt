@@ -1,0 +1,18 @@
+1. docker build . -t kube-node-project
+2. docker tag kube-node-project <username>/kube-node-project
+3. docker push <username>/kube-node-project
+
+4. kubectl create deployment kube-node --image=<username>/kube-node-project
+    Additional commands
+    - kubectl get pods
+    - kubectl get deployments
+
+5. kubectl logs -f kube-node.... (generated pod stuff)
+
+Example output
+❯ kubectl logs -f kube-node-8d84fc69d-ttbjd
+
+> project@1.0.0 start /usr/src/app
+> node index.js
+
+Server running on port 3001

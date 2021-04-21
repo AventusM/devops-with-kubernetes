@@ -1,0 +1,13 @@
+Setup Grafana / Loki like in the material. The dashboard should be accessible through localhost:3000
+
+Grafana/Loki Log browser filter
+- {app="kube-node", container="kube-node-backend"}
+
+1. In order to run the project you need to kubectl apply -f following
+- persistence-manifests
+- secret-manifests
+- statefulset-manifests
+- project/manifests
+
+The project is accessible through localhost:8081
+Too long todos will be caught/marked in the logs, and show an error message (a really bare one) in the frontend

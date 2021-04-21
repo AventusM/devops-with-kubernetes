@@ -1,0 +1,1 @@
+Followed the material example and tested it with own pixabay api key (part2/material directory)

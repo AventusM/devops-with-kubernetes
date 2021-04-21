@@ -1,0 +1,8 @@
+The application generates a log containing the todo.
+NOTE: Due to the logs having similar names, its advised to use the Lens IDE to view the logs of a pod
+which contains the todo for the day to read a randomly generated wiki article
+
+In order to start the program you need to do the step(s) below.
+1. kubectl apply -f following
+- persistence-manifests
+- cronjob-manifests

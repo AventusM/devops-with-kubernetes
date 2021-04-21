@@ -1,0 +1,10 @@
+Similar to 2.3, but this time set the context / run with explicit namespace to "course-project". Run the same manifests as in 2.2.txt
+
+OLD INFORMATION HERE REMAINING FOR DEMONSTRATION PURPOSES AND THAT THE EXERCISE HAS BEEN UNDERSTOOD
+The following change was applied for the project to work in its new namespace
+- OLD: const TODO_BACKEND_BASEURL = "http://kube-node-service:2346" (default namespace)
+- NEW: const TODO_BACKEND_BASEURL = "http://kube-node-service.course-project:2346"
+
+NEW: THIS IS THE MOST UP-TO-DATE INFORMATION REGARDING THE EXERCISE
+EDIT: As of 2.8, in order to help development and not jump around in various namespaces, all exercises are returned in "course-exercises" namespace
+Therefore the BACKEND URL is now --> http://kube-node-service.course-exercises:2346

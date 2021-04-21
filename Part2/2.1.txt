@@ -1,0 +1,10 @@
+Connecting ping-pong and split-getting-started together via http requests. split-getting-started still uses volumes between its own parts still, however.
+- Some alterations were made in ping-pong project so that accessing "/" doesn't increase the counter automatically
+
+1. go to root (Part2/)
+2. kubectl apply -f (all of the following)
+  - persistence-manifests/
+  - ping-pong/manifests/ --> service.yaml has relevant updates that allow timestamp-response (in split-getting-started) to do the data fetching through <servicename.namespace:port>
+  - split-getting-started/
+
+The project should be accessible in localhost:8081

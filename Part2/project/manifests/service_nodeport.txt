@@ -1,0 +1,15 @@
+Change back to .yaml when necessary
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-node-service
+spec:
+  type: NodePort
+  selector:
+    app: kube-node # This is the app as declared in the deployment.
+  ports:
+    - name: http
+      nodePort: 30080 # This is the port that is available outside. Value for nodePort can be between 30000-32767
+      protocol: TCP
+      port: 1234 # Can be anything per material example at the time of writing
+      targetPort: 3001 # This is the target port

@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: daily-todo
+spec:
+  schedule: "0 0 * * *" # <-- Once every midnight "*/1 * * * *" <-- This one every minute for testing purposes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: shared-text
+            persistentVolumeClaim:
+              claimName: logs-claim
+          containers:
+          - name: daily-todo
+            image: aventusm/daily-todo
+            volumeMounts:
+            - name: shared-text
+              mountPath: /files
+          restartPolicy: OnFailure

@@ -1,0 +1,28 @@
+NOTE:
+- The application is accessible through localhost:8081/pingpong (using the shared ingress with the main application in this task)
+- In order to run the application properly, you need to ensure that the postgres container has the relevant table included within
+
+1. kubectl apply -f following
+- secret-manifests (creates the common postgresql secrets. Secret instead of SealedSecret used here)
+- statefulset-manifests (creates the postgresql container)
+- ping-pong/manifests
+
+The step above SHOULD BE ENOUGH
+
+
+TROUBLESHOOTING (Older config before I moved database creation to the node app)
+1. Edit the database
+- kubectl exec -it "<postgres-ss-0> pod" bash
+- login through the secret user credentials "psql -h $(hostname -i) -U <POSTGRES_USER> -p 5432 <POSTGRES_DB>"
+  - POSTGRES_USER=user
+  - POSTGRES_DB=db
+- enter the password in the ensuing prompt
+  - POSTGRES_DB=test
+
+2. Create table and insert one element inside so the ping-pong node.js project can access the database
+- CREATE TABLE counts (ID INT PRIMARY KEY NOT NULL, AMOUNT INT);
+- INSERT INTO counts (ID, AMOUNT) VALUES (1, 0);
+
+3. kubectl apply -f ping-pong/manifests
+- Current counter increase logic is quirky as the res.redirect("/") would ignore the ingress routing and go directly to the main application root
+- Therefore it is res.redirect("/pingpong")

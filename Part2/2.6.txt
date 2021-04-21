@@ -1,0 +1,8 @@
+kubectl apply -f the following directories
+- configmap-manifests
+- namespace-manifests (if not already)
+- persistence-manifests
+- ping-pong
+- split-getting-started
+
+timestamp-response accesses the process.env.MESSAGE provided in the main-ping-pong.yaml configMap which can be adjusted on the fly through reapplying the .yaml file (deployment must be restarted, however)

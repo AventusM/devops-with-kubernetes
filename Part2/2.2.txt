@@ -1,0 +1,5 @@
+Apply the manifests in project/manifests. Ingress routing enables access to the backend from "gateway"
+
+It creates a pod which has two services
+- project gateway - contains the frontend and accesses the backend by passing data
+- project backend - generates todos from given data
