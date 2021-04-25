@@ -1,9 +1,9 @@
-name: Release application
+name: Release example application (colorcontent)
 
 on:
   push:
-    paths:
-      - 'Part3/material/environments/**'
+    #paths:
+    #  - 'Part3/material/environments/**'
 
 env:
   GKE_CLUSTER: dwk-cluster
@@ -43,8 +43,11 @@ jobs:
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
 
+    - name: List stuff
+      run: ls -tlar    
+
     - name: Deploy
       run: |-
         ./kustomize edit set image PROJECT/IMAGE=$IMAGE_WITH_TAG
-        kubectl apply -k ./Part3/material/environments
+        kubectl apply -k ./Part3/material/environments/kustomization.yaml
         kubectl rollout status deployment $IMAGE
