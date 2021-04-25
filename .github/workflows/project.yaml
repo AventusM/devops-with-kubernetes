@@ -13,6 +13,7 @@ env:
   GKE_ZONE: europe-north1-b
   GATEWAY_IMAGE: kube-node-gateway
   BACKEND_IMAGE: kube-node-backend
+  COMBINED_IMAGE: kube-node
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
@@ -62,6 +63,5 @@ jobs:
         ../../kustomize edit set image PROJECT/GATEWAYIMAGE=$GATEWAY_IMAGE_WITH_TAG
         ../../kustomize edit set image PROJECT/BACKENDIMAGE=$BACKEND_IMAGE_WITH_TAG
         kubectl apply -k .
-        kubectl rollout status deployment $GATEWAY_IMAGE
-        kubectl rollout status deployment $BACKEND_IMAGE
+        kubectl rollout status deployment $COMBINED_IMAGE
         

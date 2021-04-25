@@ -16,27 +16,6 @@ const GKEROOT = '/todos';
 const BASE_PATH = '/';
 const TABLE_NAME = 'todos';
 
-/*pool.once('connect', (client) => {
-  const tableCreateQuery = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (id SERIAL PRIMARY KEY, text VARCHAR(140))`;
-  // Should cover the potential edge case for the time being (query failing on no entries. Fix it or keep this)
-  const valueInsertQuery = `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, 'This is an example todo')`;
-  client.query(tableCreateQuery, (err, res) => {
-    if (err) {
-      console.log(err.stack);
-    } else {
-      console.log(res.rows[0]);
-    }
-  });
-
-  client.query(valueInsertQuery, (err, res) => {
-    if (err) {
-      console.log(err.stack);
-    } else {
-      console.log(res.rows[0]);
-    }
-  });
-});*/
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());

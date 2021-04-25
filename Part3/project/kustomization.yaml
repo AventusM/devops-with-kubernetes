@@ -1,5 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 resources:
   - manifests/course-exercises-namespace.yaml
   - manifests/deployment.yaml
@@ -8,6 +9,7 @@ resources:
   - manifests/postgres-secret.yaml
   - manifests/service.yaml
 images:
+
   - name: PROJECT/GATEWAYIMAGE
     newName: aventusm/kube-node-project-gke
   - name: PROJECT/BACKENDIMAGE
