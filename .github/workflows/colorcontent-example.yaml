@@ -3,7 +3,7 @@ name: Release application
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'Part3/material/environments/**'
     
