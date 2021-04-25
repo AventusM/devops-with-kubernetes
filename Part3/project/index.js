@@ -9,8 +9,7 @@ const directory = path.join('public');
 const imageFilePath = path.join(directory, 'picsum.jpg');
 const lastUpdatedFilePath = path.join(directory, 'lastupdated.txt'); // Should go in the cookies or something. State of the art programming right here folks
 const IMAGE_URL = 'https://picsum.photos/1200';
-const TODO_BACKEND_BASEURL =
-  'http://kube-node-service.course-exercises:2346/todos'; // GKE requires the full url with the path
+const TODO_BACKEND_BASEURL = 'http://kube-node-service:2346/todos'; // GKE requires the full url with the path. 3.03: Using DEFAULT namespace. 3.04/3.05 TODO: Possibly a new namespace...?
 // const TODO_BACKEND_BASEURL = "http://localhost:3002" Local dev --> Should use envs here rly
 
 const todaysFileAlreadyExists = async () =>
