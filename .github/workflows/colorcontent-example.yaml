@@ -2,8 +2,10 @@ name: Release example application (colorcontent)
 
 on:
   push:
-    #paths:
-    #  - 'Part3/material/environments/**'
+    branches:
+      - main
+    paths:
+      - 'Part3/material/environments/**'
 
 env:
   GKE_CLUSTER: dwk-cluster
