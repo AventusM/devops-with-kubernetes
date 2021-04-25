@@ -33,7 +33,7 @@ jobs:
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
 
     - name: Build
-      run: docker build --tag "$IMAGE_WITH_TAG" .
+      run: docker build --tag "$IMAGE_WITH_TAG" ./Part3/material/environments
 
     - name: Publish
       run: docker push "$IMAGE_WITH_TAG"
