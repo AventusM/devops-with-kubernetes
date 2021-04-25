@@ -1,0 +1,17 @@
+This exercise assumes (on default) that the namespace is default (backend fetch url namespace removed in anticipation of 3.4 and 3.5)
+Most relevant changes were in introducing the .github/workflow/project.yaml and adjusting some small variables / endpoints in the project code as the GKE ingress is sub-par (/todos endpoint wont work while /todos/ will (2nd backslash))
+
+To run the project, it should be done in two phases.
+
+1. Setup the secrets and the database
+e.g. kubectl apply -f
+  - secret-manifests
+  - statefulset-manifests
+
+Then run kubectl exec -it postgres-ss-0 bash and login --> create table --> insert some data (optional)
+  - psql -h $(hostname -i) -U user -p 5432 db (on prompt put 'test' as password)
+  - CREATE TABLE todos (id SERIAL PRIMARY KEY, text VARCHAR(140));
+  - INSERT INTO todos VALUES (DEFAULT 'Any text goes');
+
+2. Do any changes to the Part3/project or Part3/project-backend directories (non-breaking ones, ofcourse)
+- It should trigger a workflow through kustomization.yaml, that ends in a kube-node workload/deployment being created and available on a url with a type similar to http://35.201.68.5/ (running at the time of writing)
