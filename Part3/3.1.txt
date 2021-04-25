@@ -1,0 +1,10 @@
+NOTES
+- Increase the counter with HTTP GET /increase endpoint
+- The deployment manifest file uses "aventusm/ping-pong-http-solo" container image since the app is usually used with the "main application"
+
+1. kubectl apply -f following
+- secret-manifests
+- statefulset-manifests (volumeMounts had subPath added and volumeClaimTemplates had local-path removed)
+- ping-pong/manifests_301 /// runs the LoadBalancer service specific to the ping-pong application in addition with the change regarding res.redirect('/pingpong') changed to res.redirect('/pingpong')
+
+The application should be accessible in port 2347 (url was http://35.228.220.8:2347 in my example) at the time of writing

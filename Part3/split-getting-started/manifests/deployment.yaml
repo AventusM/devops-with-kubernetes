@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: split-timestamp-string
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logs
+  template:
+    metadata:
+      labels:
+        app: logs
+    spec:
+      volumes: # Define volume
+        - name: shared-text
+          # emptyDir: {}
+          persistentVolumeClaim:
+            claimName: logs-claim
+      containers:
+        - name: timestamp-creator-split
+          image: aventusm/timestamp-creator-split
+          volumeMounts: # Mount volume
+            - name: shared-text
+              mountPath: /files
+        - name: timestamp-response
+          image: aventusm/timestamp-response
+          envFrom:
+          - configMapRef:
+              name: main-ping-pong-configmap
+          volumeMounts: # Mount volume
+            - name: shared-text
+              mountPath: /files

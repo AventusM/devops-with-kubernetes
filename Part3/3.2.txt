@@ -1,0 +1,19 @@
+NOTICE: Use the course-exercises namespace (apply namespace-manifests and run kubectl config set-context --current --namespace course-exercises)
+- Main application backend url runs there. Probably could move parts of it to ConfigMap etc.
+
+1. Apply kubectl apply -f to the following directories
+
+- configmap-manifests
+- persistenceclaim-manifests
+- secret-manifests
+- statefulset-manifests
+
+- split-getting-started/manifests
+- ping-pong/manifests (container image got changed to gke version due to PathPrefixStrip not being supported). app.get() functions had the adjustments done, including adding a new app.get("/") route which gke used to do a health check on. Maybe ~6 hours of my life was spent on finding solution for this situation -.-
+- ingress-manifests
+
+The app should be accessible through following paths
+
+- "/"
+- "/pingpong/" (notice the 2nd slash, based on the only allowed ingress wildcard configuration)
+- "/pingpong/increase"

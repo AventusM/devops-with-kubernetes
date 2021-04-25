@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ping-pong-timestamp-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: split-timestamp-string-service
+              servicePort: 2345
+          - path: /pingpong/*
+            backend:
+              serviceName: ping-pong-service
+              servicePort: 2347

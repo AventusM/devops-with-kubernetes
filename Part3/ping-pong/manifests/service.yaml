@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ping-pong-service
+spec:
+  type: NodePort # GKE Requirement with Ingresses
+  selector:
+    app: ping-pong
+  ports:
+    - port: 2347
+      protocol: TCP
+      targetPort: 3002
