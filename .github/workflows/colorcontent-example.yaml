@@ -33,6 +33,8 @@ jobs:
 
       - name: Create GCR image name and tag it
         run: echo "::set-env name=IMAGE_WITH_TAG::gcr.io/${{ secrets.GKE_PROJECT }}/$IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' # set-env error fix attempt
 
       - name: Build GCR image
         run: docker build --tag "$IMAGE_WITH_TAG"
