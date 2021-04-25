@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'Part3/material/environments/**'
+    #paths:
+    #  - 'Part3/material/environments/**'
     
 env:
   GKE_CLUSTER: dwk-cluster
