@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-node
+  template:
+    metadata:
+      labels:
+        app: kube-node
+    spec:
+      volumes: # Define volume
+        - name: shared-text
+          # emptyDir: {}
+          persistentVolumeClaim:
+            claimName: logs-claim
+      containers:
+        - name: kube-node-gateway
+          image: PROJECT/GATEWAYIMAGE
+          volumeMounts: # Mount volume
+            - name: shared-text
+              mountPath: /public
+        - name: kube-node-backend
+          image: PROJECT/BACKENDIMAGE
+          envFrom:
+          - secretRef:
+              name: postgres-credentials

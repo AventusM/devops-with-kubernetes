@@ -1,0 +1,67 @@
+name: Release project
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Part3/project/**'
+      - 'Part3/project-backend/**'
+
+env:
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  GATEWAY_IMAGE: kube-node-gateway
+  BACKEND_IMAGE: kube-node-backend
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Create GATEWAY image name and tag
+      run: echo "::set-env name=GATEWAY_IMAGE_WITH_TAG::gcr.io/${{ secrets.GKE_PROJECT }}/$GATEWAY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+
+    - name: Create BACKEND image name and tag
+      run: echo "::set-env name=BACKEND_IMAGE_WITH_TAG::gcr.io/${{ secrets.GKE_PROJECT }}/$BACKEND_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+
+
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+
+    - run: gcloud --quiet auth configure-docker
+    - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+
+    # Build images
+    - name: Build GATEWAY
+      run: docker build --tag "$GATEWAY_IMAGE_WITH_TAG" ./Part3/project
+    - name: Build BACKEND
+      run: docker build --tag "$BACKEND_IMAGE_WITH_TAG" ./Part3/project-backend
+
+    # Publish images
+    - name: Publish GATEWAY
+      run: docker push "$GATEWAY_IMAGE_WITH_TAG"
+    - name: Publish BACKEND
+      run: docker push "$BACKEND_IMAGE_WITH_TAG"
+
+    - name: Set up Kustomize
+      run: |-
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+
+    - name: Deploy
+      run: |-
+        cd ./Part3/project
+        ../../kustomize edit set image PROJECT/GATEWAYIMAGE=$GATEWAY_IMAGE_WITH_TAG
+        ../../kustomize edit set image PROJECT/BACKENDIMAGE=$BACKEND_IMAGE_WITH_TAG
+        kubectl apply -k .
+        kubectl rollout status deployment $GATEWAY_IMAGE
+        kubectl rollout status deployment $BACKEND_IMAGE
+        

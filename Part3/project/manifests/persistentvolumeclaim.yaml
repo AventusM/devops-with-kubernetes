@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: logs-claim
+spec: # Removed the storageClassName field within the spec per material / GKE instructions. Similar situation to postgres StatefulSet
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
