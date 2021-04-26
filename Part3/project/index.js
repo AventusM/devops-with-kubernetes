@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 const directory = path.join('public');
 const imageFilePath = path.join(directory, 'picsum.jpg');
-const lastUpdatedFilePath = path.join(directory, 'lastupdated.txt'); // Should go in the cookies or something. State of the art programming right here folks
+const lastUpdatedFilePath = path.join(directory, 'lastupdated.txt');
 const IMAGE_URL = 'https://picsum.photos/1200';
 const TODO_BACKEND_BASEURL = `http://kube-node-service.${process.env.DEPLOYMENT_POD_NAMESPACE}:2346/todos`; // GKE requires the full url with the path.
 
