@@ -19,3 +19,11 @@
 - Storing legally sensitive data in a way DBaas service providers are unable to
 - Once a business reaches a certain size, it becomes more economical to build own database (issues of cost-at-scale)
 - Primary advantage would likely be in the matter of control. This approach has the direct access to the servers that are running the database
+
+## 3.07
+
+#### Using Postgres with PersistentVolumeClaims
+
+- Because it sounded easier
+- Biased answer since we've already got the postgres setup in place
+- Wanting to go outside vendor lock-in problems after running into them in earlier Firebase projects
