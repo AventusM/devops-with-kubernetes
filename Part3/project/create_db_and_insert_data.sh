@@ -1,6 +1,6 @@
 #!/bin/bash
 RUN_ON_POSTGRES="psql -h $(hostname -i) -U user -p 5432 db password=test"
-$RUN_ON_MYDB << PSQL
+$RUN_ON_POSTGRES << PSQL
 CREATE TABLE todos (id SERIAL PRIMARY KEY, text VARCHAR(140));
 INSERT INTO todos VALUES (DEFAULT, 'Bash script todo value');
 PSQL

@@ -1,0 +1,5 @@
+To run the application properly, the database must have the table setup properly.
+Unfortunately, I've been unable to do them at branch creation, but there is a bash script created to seed the data (with unsecured credentials, due to lack of bash skills).
+If the bash script wont work, copy/paste the login/create table/insert data into table (last one optional) for the node.js app to run.
+The application should be able to be run simply by triggering the workflow (changing something on project or project-backend directories).
+It creates a branch-specific environment inside the cluster
