@@ -11,7 +11,7 @@ e.g. kubectl apply -f
 Then run kubectl exec -it postgres-ss-0 bash and login --> create table --> insert some data (optional)
   - psql -h $(hostname -i) -U user -p 5432 db (on prompt put 'test' as password)
   - CREATE TABLE todos (id SERIAL PRIMARY KEY, text VARCHAR(140));
-  - INSERT INTO todos VALUES (DEFAULT 'Any text goes');
+  - INSERT INTO todos VALUES (DEFAULT, 'Any text goes');
 
 2. Do any changes to the Part3/project or Part3/project-backend directories (non-breaking ones, ofcourse)
 - It should trigger a workflow through kustomization.yaml, that ends in a kube-node workload/deployment being created and available on a url with a type similar to http://35.201.68.5/ (running at the time of writing)
