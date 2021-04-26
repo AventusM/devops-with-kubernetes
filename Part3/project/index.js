@@ -16,7 +16,6 @@ const todaysFileAlreadyExists = async () =>
     // Check if image doesn't exist
     fs.stat(imageFilePath, (err, stats) => {
       if (err || !stats) return res(false);
-      // return res(true) --> Can still be an old image. Proceed with the check
     });
 
     const now = new Date();

@@ -26,6 +26,6 @@ jobs:
     - name: Delete branch-related namespace (and subsequently its contents)
       run: |-
         echo "deleting namespace ${{ github.event.ref }}"
-        kubectl delete namespace ${{ github.event.ref }}"
+        kubectl delete namespace ${{ github.event.ref }}
         echo "namespace deleted"
         
