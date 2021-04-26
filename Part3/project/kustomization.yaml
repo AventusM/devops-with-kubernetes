@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - manifests/course-exercises-namespace.yaml
   - manifests/deployment.yaml
+  - manifests/horizontalpodautoscaler.yaml
   - manifests/ingress.yaml
   - manifests/persistentvolumeclaim.yaml
   - manifests/postgres-secret.yaml
