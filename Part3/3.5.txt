@@ -1,0 +1,7 @@
+1. Push the project to gcr (through project.yaml) to a new branch (creates a new namespace)
+  - the workflow is triggered by any changes to project or project-backend in Part3 directory
+  - confirm that it exists on google cloud console
+2. Merge the new branch with the main branch
+3. Delete the new namespace (project-branch-delete.yaml follows the file that is on the main branch)
+  - The workflow is triggered by a deleted branch (any at the moment)
+  - confirm that the namespace (its contents mainly!) doesn't exist anymore on google cloud console
