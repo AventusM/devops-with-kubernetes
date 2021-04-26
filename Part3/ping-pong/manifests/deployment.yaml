@@ -18,3 +18,7 @@ spec:
           envFrom:
           - secretRef:
               name: postgres-credentials
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "50Mi"

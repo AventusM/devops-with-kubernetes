@@ -17,15 +17,14 @@ spec:
       labels:
         app: kube-node
     spec:
-      volumes: # Define volume
+      volumes:
         - name: shared-text
-          # emptyDir: {}
           persistentVolumeClaim:
             claimName: logs-claim
       containers:
         - name: kube-node-gateway
           image: PROJECT/GATEWAYIMAGE
-          volumeMounts: # Mount volume
+          volumeMounts:
             - name: shared-text
               mountPath: /public
           env:

@@ -23,6 +23,10 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-text
               mountPath: /files
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
         - name: timestamp-response
           image: aventusm/timestamp-response
           envFrom:
@@ -31,3 +35,7 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-text
               mountPath: /files
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "50Mi"

@@ -27,3 +27,17 @@
 - Because it sounded easier
 - Biased answer since we've already got the postgres setup in place
 - Wanting to go outside vendor lock-in problems after running into them in earlier Firebase projects
+
+## 3.08 & 3.09
+
+#### Resource limits
+
+Set same (low-ish?) values for each container after seeing that the workload monitor charts
+were well within the limits. The memory usage is hovering between 60-75% constantly.
+
+Values set
+
+- 100m for CPU
+- 50Mi for memory
+
+Horizontal pod autoscaler is fairly conservative as it allows for exactly 1 replica and 25% target CPU utilization. The target percentage could be lowered still as the usage percentage is in the single digits.
