@@ -23,7 +23,6 @@ spec:
           persistentVolumeClaim:
             claimName: logs-claim
       containers:
-
         - name: kube-node-gateway
           image: PROJECT/GATEWAYIMAGE
           volumeMounts: # Mount volume
@@ -34,7 +33,6 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-
         - name: kube-node-backend
           image: PROJECT/BACKENDIMAGE
           envFrom:
