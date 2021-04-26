@@ -27,7 +27,7 @@ jobs:
       run: |-
         echo "::set-env name=GITHUB_EVENT_REF::${{ github.event.ref }}"
         echo "old GITHUB_EVENT_REF is $GITHUB_EVENT_REF"
-        GITHUB_EVENT_REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
+        GITHUB_EVENT_REF=$(echo $GITHUB_EVENT_REF | sed -e "s#refs/heads/##g")
         echo "new GITHUB_EVENT_REF is $GITHUB_EVENT_REF"
         kubectl delete namespace $GITHUB_EVENT_REF
         
