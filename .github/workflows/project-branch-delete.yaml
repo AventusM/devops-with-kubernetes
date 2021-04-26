@@ -6,6 +6,7 @@ on:
 env:
   GKE_CLUSTER: dwk-cluster
   GKE_ZONE: europe-north1-b
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   setup-delete:
@@ -24,5 +25,9 @@ jobs:
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - name: Delete branch-related namespace (and subsequently its contents)
       run: |-
-        kubectl delete namespace ${GITHUB_REF#refs/heads/}
+        echo "::set-env name=GITHUB_REF::${{ github.ref }}"
+        echo "old GITHUB_REF is $GITHUB_REF"
+        GITHUB_REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
+        echo "new GITHUB_REF is $GITHUB_REF"
+        kubectl delete namespace $GITHUB_REF
         
