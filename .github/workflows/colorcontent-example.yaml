@@ -2,8 +2,6 @@ name: Release example application (colorcontent)
 
 on:
   push:
-    branches:
-      - main
     paths:
       - 'Part3/material/environments/**'
 
@@ -47,7 +45,11 @@ jobs:
 
     - name: Deploy
       run: |-
+        kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+        kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+
         cd ./Part3/material/environments
+        ../../../kustomize edit set namespace ${GITHUB_REF#refs/heads/}
         ../../../kustomize edit set image PROJECT/IMAGE=$IMAGE_WITH_TAG
         kubectl apply -k .
         kubectl rollout status deployment $IMAGE
