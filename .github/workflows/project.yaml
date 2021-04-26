@@ -61,7 +61,7 @@ jobs:
         kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
 
         cd ./Part3/project
-        ../../../kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+        ../../kustomize edit set namespace ${GITHUB_REF#refs/heads/}
         ../../kustomize edit set image PROJECT/GATEWAYIMAGE=$GATEWAY_IMAGE_WITH_TAG
         ../../kustomize edit set image PROJECT/BACKENDIMAGE=$BACKEND_IMAGE_WITH_TAG
         kubectl apply -k .
