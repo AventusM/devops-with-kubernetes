@@ -8,8 +8,8 @@ resources:
   - manifests/persistentvolumeclaim.yaml
   - manifests/postgres-secret.yaml
   - manifests/service.yaml
-images:
 
+images:
   - name: PROJECT/GATEWAYIMAGE
     newName: aventusm/kube-node-project-gke
   - name: PROJECT/BACKENDIMAGE

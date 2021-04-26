@@ -2,8 +2,6 @@ name: Release project
 
 on:
   push:
-    branches:
-      - main
     paths:
       - 'Part3/project/**'
       - 'Part3/project-backend/**'
@@ -57,9 +55,13 @@ jobs:
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
 
-    - name: Deploy
+    - name: Deploy to namespace
       run: |-
+        kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+        kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+
         cd ./Part3/project
+        ../../../kustomize edit set namespace ${GITHUB_REF#refs/heads/}
         ../../kustomize edit set image PROJECT/GATEWAYIMAGE=$GATEWAY_IMAGE_WITH_TAG
         ../../kustomize edit set image PROJECT/BACKENDIMAGE=$BACKEND_IMAGE_WITH_TAG
         kubectl apply -k .
