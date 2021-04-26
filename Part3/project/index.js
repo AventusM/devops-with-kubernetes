@@ -78,7 +78,7 @@ app.get('/', async (_req, res) => {
 app.post('/new', async (req, res) => {
   try {
     const { todo } = req.body;
-    await axios.post(TODO_BACKEND_BASEURL, { todo: todo }); // Should probably check the response status provided in the object
+    await axios.post(TODO_BACKEND_BASEURL, { todo: todo });
     res.redirect('/');
   } catch (error) {
     res.send(error.message);

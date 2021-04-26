@@ -25,9 +25,7 @@ jobs:
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     - name: Delete branch-related namespace (and subsequently its contents)
       run: |-
-        echo "::set-env name=GITHUB_EVENT_REF::${{ github.event.ref }}"
-        echo "old GITHUB_EVENT_REF is $GITHUB_EVENT_REF"
-        GITHUB_EVENT_REF=$(echo $GITHUB_EVENT_REF | sed -e "s#refs/heads/##g")
-        echo "new GITHUB_EVENT_REF is $GITHUB_EVENT_REF"
-        kubectl delete namespace $GITHUB_EVENT_REF
+        echo "deleting namespace ${{ github.event.ref }}"
+        kubectl delete namespace ${{ github.event.ref }}"
+        echo "namespace deleted"
         
