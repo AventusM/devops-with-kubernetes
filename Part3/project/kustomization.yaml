@@ -7,6 +7,7 @@ resources:
   - manifests/ingress.yaml
   - manifests/persistentvolumeclaim.yaml
   - manifests/postgres-secret.yaml
+  - manifests/postgres-statefulset.yaml
   - manifests/service.yaml
 
 images:
