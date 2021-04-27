@@ -1,0 +1,15 @@
+1. kubectl apply -f following in the "course-exercises" namespace
+- configmap-manifests
+- ingress-manifests
+- persistence-manifests
+- secret-manifests
+
+1.1. apply the application manifests
+- ping-pong/manifests
+- split-getting-started/manifests
+CHECK that split getting started is 1/2 ready and pingpong is 0/1 ready
+
+2. Apply the statefulset manifests (postgres)
+- Ready states should move asynchronically to 2/2 and 1/1 to their respective applications
+
+Screenshot (4.1.png) provided to visualize progress as explained in material

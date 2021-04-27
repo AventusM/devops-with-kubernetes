@@ -1,0 +1,12 @@
+2-phase result test
+NOTE: run this in "course-exercises" namespace (means running: kubectl apply -f namespace-manifests and kubectl config set-context --current --namespace course-exercises)
+
+1. kubectl apply -f following
+- secret-manifests
+- statefulset-manifests
+
+1.1. kubectl apply -k . within the project "root"
+- NOTE: set the secretRef name to 'bad-credentials'. This will cause the readinessprobes to fail
+
+2. Change the secretRef name value to 'postgres-credentials' (same values as in statefulset yaml)
+- The readiness / livenessprobes should pass, terminating the old pod in the way of new one.
