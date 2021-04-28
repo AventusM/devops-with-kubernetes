@@ -1,0 +1,21 @@
+1. Create the argo-rollouts
+  $ kubectl create namespace argo-rollouts
+  $ kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
+
+2. Apply the non-application manifests in the course-exercises namespace
+-> Prerequisite is kubectl apply -f namespace-manifests/ and kubectl config set-context --current --namespace course-exercises
+
+- persistence-manifests
+- secret-manifests
+- statefulset-manifests
+- project-rollout-manifests (contains the analysis template yaml that allows rollout to watch for CPU limit rate sum being reached)
+
+
+3. go to project "root" directory and replace deployment.yaml with rollout.yaml within the kustomization.yaml file.
+4. kubectl apply -k .
+5. reapply project-rollout-manifests successCondition from: result < 15 to result < 1
+6. go to project kustomization.yaml and change PROJECT/GATEWAYIMAGE from aventusm/kube-node-project:latest to aventusm/kube-node-project:rollout
+
+You should have now 2 versions in localhost:8081
+--> Spam the refresh button etc to make CPU usage rate go slightly higher
+--> Lens should display an error AnalysisRun which should cause automatic roll back. More information achieved from kubectl describe ar (short for analysisrun.xyz.123 etc.) <id-of-run>

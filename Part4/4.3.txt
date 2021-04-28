@@ -1,0 +1,6 @@
+1. kubectl -n prometheus get pods
+2. port-forward prometheus stack 9090:9090
+3. open http://localhost:9090
+4. run: scalar(count(kube_pod_info{namespace="prometheus", created_by_kind="StatefulSet"}))
+
+- End result should be similar to what is shown (value 2, element title might differ slightly)

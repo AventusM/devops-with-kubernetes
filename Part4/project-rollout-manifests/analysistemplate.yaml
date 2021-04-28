@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: kube-node-restart-rate
+spec:
+  metrics:
+  - name: kube-node-restart-rate
+    initialDelay: 10m
+    successCondition: result < 15 # Should be enough to survive local refresh spam attacks
+    provider:
+      prometheus:
+        address: http://kube-prometheus-stack-1618-prometheus.prometheus.svc.cluster.local:9090
+        query: |
+          sum(rate(container_cpu_usage_seconds_total{namespace="course-exercises"}[10m]) * 100) by (namespace)
