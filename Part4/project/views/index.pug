@@ -11,6 +11,12 @@ html
           input(type="text" name="todo")
           input(type="submit" value="create TODO")
       ul 
-        each todo in todos 
-          li=todo.text
+        each todo in todos
+          if todo.completed
+            li.green=todo.text
+          else
+            li.gray-row
+              p=todo.text
+              form(method="POST" action=`/update/${todo.id}`)
+                  input(type="submit" value="complete")
       

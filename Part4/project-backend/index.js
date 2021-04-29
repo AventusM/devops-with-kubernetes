@@ -14,8 +14,8 @@ const pool = new Pool({
 const TABLE_NAME = 'todos';
 
 pool.once('connect', async (client) => {
-  const tableCreateQuery = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (id SERIAL PRIMARY KEY, text VARCHAR(140))`;
-  const valueInsertQuery = `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, 'Part 4 todo value')`;
+  const tableCreateQuery = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (id SERIAL PRIMARY KEY, text VARCHAR(140), completed boolean)`;
+  const valueInsertQuery = `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, 'Part 4 todo value', FALSE)`;
 
   try {
     const creationResult = await client.query(tableCreateQuery);
@@ -58,13 +58,27 @@ app.post('/', async (req, res) => {
     } else {
       const connection = await pool.connect();
       await connection.query(
-        `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, '${req.body.todo}')`,
+        `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, '${req.body.todo}', FALSE)`,
       );
       connection.release();
       res.sendStatus(200);
     }
   } catch (error) {
-    res.send(error);
+    res.status(400).send(error);
+  }
+});
+
+app.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const connection = await pool.connect();
+    await connection.query(
+      `UPDATE ${TABLE_NAME} SET completed=TRUE WHERE id=${id}`,
+    );
+    connection.release();
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 

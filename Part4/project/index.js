@@ -84,6 +84,16 @@ app.post('/new', async (req, res) => {
   }
 });
 
+app.post('/update/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await axios.put(`${TODO_BACKEND_BASEURL}/${id}`);
+    res.redirect('/');
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
 // Ready when it can receive data from pingpong application
 app.get('/healthz', async (_req, res) => {
   try {
