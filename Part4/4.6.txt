@@ -1,0 +1,12 @@
+1. kubectl apply -f namespace-manifests --> then switch to course-exercises namespace
+2. install helm/nats --> helm install my-nats nats/nats
+3. kubectl apply -f following supporting directories
+  - persistence-manifests
+  - secret-manifests
+  - statefulset-manifests
+4. cd to project and "kubectl apply -k ." in the root of it
+  - deployment.yaml got updates by following material (adding support for NATS)
+  - sealedsecret.yaml added for the telegram http token
+  - project-broadcaster directory added to the root of part4 directory for source code of the broadcaster
+
+The application sends a single message even with multiple replicas on the broadcaster (doesn't seem like any specific code changes were necessary for this one except to following the node telegram library)

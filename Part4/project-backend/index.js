@@ -4,6 +4,11 @@ const cors = require('cors');
 const app = express();
 const { Pool } = require('pg');
 
+const NATS = require('nats');
+const nc = NATS.connect({
+  url: process.env.NATS_URL || 'nats://nats:4222',
+});
+
 const pool = new Pool({
   host: process.env.POSTGRES_HOST,
   user: process.env.POSTGRES_USER,
@@ -11,6 +16,7 @@ const pool = new Pool({
   database: process.env.POSTGRES_DB,
   port: 5432,
 });
+
 const TABLE_NAME = 'todos';
 
 pool.once('connect', async (client) => {
@@ -38,11 +44,20 @@ app.use((req, _res, next) => {
   next();
 });
 
-app.get('/', async (_req, res) => {
+const doQuery = async (paramQuery) => {
   try {
     const connection = await pool.connect();
-    const result = await connection.query(`SELECT * FROM ${TABLE_NAME}`);
+    const queryResult = await connection.query(paramQuery);
     connection.release();
+    return queryResult;
+  } catch (error) {
+    console.log('doQuery error', error);
+  }
+};
+
+app.get('/', async (_req, res) => {
+  try {
+    const result = await doQuery(`SELECT * FROM ${TABLE_NAME}`);
     res.send({ list: result.rows });
   } catch (error) {
     res.status(500).send(error);
@@ -56,11 +71,18 @@ app.post('/', async (req, res) => {
       console.log(errorMessage);
       res.status(401).end(errorMessage);
     } else {
-      const connection = await pool.connect();
-      await connection.query(
-        `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, '${req.body.todo}', FALSE)`,
+      const insertResult = await doQuery(
+        `INSERT INTO ${TABLE_NAME} VALUES (DEFAULT, '${req.body.todo}', FALSE) RETURNING id`,
       );
-      connection.release();
+      const newTodoId = insertResult.rows[0].id;
+      const newTodo = await doQuery(
+        `SELECT * FROM ${TABLE_NAME} WHERE id=${newTodoId}`,
+      );
+
+      sendTodoData({
+        message: 'UPDATED todo',
+        data: newTodo.rows[0],
+      });
       res.sendStatus(200);
     }
   } catch (error) {
@@ -71,11 +93,16 @@ app.post('/', async (req, res) => {
 app.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const connection = await pool.connect();
-    await connection.query(
-      `UPDATE ${TABLE_NAME} SET completed=TRUE WHERE id=${id}`,
+    const updateResult = await doQuery(
+      `UPDATE ${TABLE_NAME} SET completed=TRUE WHERE id=${id} RETURNING id`,
     );
-    connection.release();
+
+    const updatedTodoId = updateResult.rows[0].id;
+    const updatedTodo = await doQuery(
+      `SELECT * FROM ${TABLE_NAME} WHERE id=${updatedTodoId}`,
+    );
+
+    sendTodoData({ message: 'CREATED new todo', data: updatedTodo.rows[0] });
     res.sendStatus(200);
   } catch (error) {
     res.status(400).send(error);
@@ -85,14 +112,16 @@ app.put('/:id', async (req, res) => {
 // Ready when path can establish a connection to the database
 app.get('/healthz', async (_req, res) => {
   try {
-    const connection = await pool.connect();
-    const result = await connection.query(`SELECT * FROM ${TABLE_NAME}`);
-    connection.release();
+    const result = doQuery(`SELECT * FROM ${TABLE_NAME}`);
     res.status(200).send({ rowCount: result.rowCount });
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+const sendTodoData = (payload) => {
+  nc.publish('broadcaster_data', JSON.stringify(payload));
+};
 
 const PORT = 3002;
 app.listen(PORT, () => {

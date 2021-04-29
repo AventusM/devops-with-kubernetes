@@ -6,6 +6,7 @@ resources:
   - manifests/ingress.yaml
   - manifests/postgres-secret.yaml
   - manifests/service.yaml
+  - manifests/sealedsecret.yaml
 
 images:
   - name: PROJECT/GATEWAYIMAGE

@@ -39,6 +39,9 @@ spec:
           envFrom:
           - secretRef:
               name: postgres-credentials # replace with bad-credentials to test for exercise 4.02
+          env:
+            - name: NATS_URL
+              value: nats://my-nats:4222
           readinessProbe:
             initialDelaySeconds: 10
             periodSeconds: 5
@@ -51,3 +54,27 @@ spec:
             httpGet:
                path: /healthz
                port: 3002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broadcaster
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: broadcaster
+  template:
+    metadata:
+      labels:
+        app: broadcaster
+    spec:
+      containers:
+        - name: broadcaster
+          image: aventusm/kube-node-project-broadcaster
+          env:
+            - name: NATS_URL
+              value: nats://my-nats:4222
+          envFrom:
+            - secretRef:
+                name: telegram-bot
