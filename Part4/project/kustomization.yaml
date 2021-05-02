@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - manifests/sealedsecret-postgres.yaml
   - manifests/sealedsecret-telegram.yaml
-  - manifests/deployment-broadcaster.yaml
   - manifests/deployment.yaml
   - manifests/ingress.yaml
   - manifests/namespace-course-exercises.yaml
