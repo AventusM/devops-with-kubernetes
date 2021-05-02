@@ -15,10 +15,10 @@ resources:
 images:
   - name: PROJECT/GATEWAYIMAGE
     newName: aventusm/kube-node-project
-    newTag: 31a712b97146c491fbb90039b3854ac4cc5a517e
+    newTag: latest
   - name: PROJECT/BACKENDIMAGE
     newName: aventusm/kube-node-project-backend
-    newTag: 31a712b97146c491fbb90039b3854ac4cc5a517e
+    newTag: latest
   - name: PROJECT/BROADCASTERIMAGE
     newName: aventusm/kube-node-project-broadcaster
-    newTag: 31a712b97146c491fbb90039b3854ac4cc5a517e
+    newTag: latest
