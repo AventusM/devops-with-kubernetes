@@ -4,12 +4,18 @@ kind: Kustomization
 resources:
   - manifests/deployment.yaml
   - manifests/ingress.yaml
-  - manifests/postgres-secret.yaml
+  - manifests/namespace-course-exercises.yaml
+  - manifests/persistentvolume.yaml
+  - manifests/persistentvolumeclaim.yaml
+  - manifests/sealedsecret-postgres.yaml
+  - manifests/sealedsecret-telegram.yaml
+  - manifests/postgres-statefulset.yaml
   - manifests/service.yaml
-  - manifests/sealedsecret.yaml
 
 images:
   - name: PROJECT/GATEWAYIMAGE
     newName: aventusm/kube-node-project
   - name: PROJECT/BACKENDIMAGE
     newName: aventusm/kube-node-project-backend
+  - name: PROJECT/BROADCASTERIMAGE
+    newName: aventusm/kube-node-project-broadcaster

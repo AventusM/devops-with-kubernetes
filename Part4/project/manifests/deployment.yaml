@@ -60,7 +60,7 @@ kind: Deployment
 metadata:
   name: broadcaster
 spec:
-  replicas: 6
+  replicas: 1
   selector:
     matchLabels:
       app: broadcaster
@@ -71,7 +71,7 @@ spec:
     spec:
       containers:
         - name: broadcaster
-          image: aventusm/kube-node-project-broadcaster
+          image: PROJECT/BROADCASTERIMAGE
           env:
             - name: NATS_URL
               value: nats://my-nats:4222
