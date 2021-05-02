@@ -8,7 +8,7 @@ on:
       - './Part4/project/**'
       - './Part4/project-backend/**'
       - './Part4/project-broadcaster/**'
-      - '.github/workflows/project-gitobs.yaml'
+      - '.github/workflows/project-gitops.yaml'
 
 jobs:
   build:
