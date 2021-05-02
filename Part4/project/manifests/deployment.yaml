@@ -19,6 +19,7 @@ spec:
       containers:
         - name: kube-node-gateway
           image: PROJECT/GATEWAYIMAGE
+          imagePullPolicy: Always
           env:
           - name: DEPLOYMENT_POD_NAMESPACE
             valueFrom:
@@ -41,6 +42,7 @@ spec:
                port: 3002 # CONNECTS TO THE BACKEND --> HAS TO SHARE THE PORT FOR SOME REASON
         - name: kube-node-backend
           image: PROJECT/BACKENDIMAGE
+          imagePullPolicy: Always
           envFrom:
           - secretRef:
               name: postgres-credentials # replace with bad-credentials to test for exercise 4.02
@@ -77,6 +79,7 @@ spec:
       containers:
         - name: broadcaster
           image: PROJECT/BROADCASTERIMAGE
+          imagePullPolicy: Always
           env:
             - name: NATS_URL
               value: nats://my-nats:4222
