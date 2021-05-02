@@ -1,0 +1,76 @@
+name: Release Todo project gitops app
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './Part4/project/**'
+      - './Part4/project-backend/**'
+      - './Part4/project-broadcaster/**'
+      - '.github/workflows/project-gitobs.yaml'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # Build and push
+    - name: Publish gateway
+      uses: docker/build-push-action@v1
+      with:
+        repository: aventusm/kube-node-project
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: Part4/project
+
+    - name: Publish backend
+      uses: docker/build-push-action@v1
+      with:
+        repository: aventusm/kube-node-project-backend
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: Part4/project-backend
+
+    - name: Publish broadcaster
+      uses: docker/build-push-action@v1
+      with:
+        repository: aventusm/kube-node-project-broadcaster
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: Part4/project-broadcaster
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Kustomize
+      working-directory: Part4/project/manifests
+      run: |-
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+
+    # Update yamls
+    - name: Update yamls
+      working-directory: Part4/project
+      run: |-
+        ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:${{ github.sha }}
+        ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:${{ github.sha }}
+        ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster:${{ github.sha }}
+
+    # Commit and push
+    - uses: EndBug/add-and-commit@v5
+      with:
+        add: 'Part4/project/kustomization.yaml'
+        message: New version release for todo project gitops-app ${{ github.sha }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
