@@ -60,11 +60,9 @@ jobs:
         chmod u+x ./kustomize
 
     # Update yamls
-    - name: Set namespace and update yamls
+    - name: Update yamls
       working-directory: Part4/project/manifests
       run: |-
-        kubectl create namespace course-exercises || true
-        kubectl config set-context --current --namespace=course-exercises
         ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:${{ github.sha }}
         ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:${{ github.sha }}
         ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster:${{ github.sha }}
