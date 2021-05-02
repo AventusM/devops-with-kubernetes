@@ -63,9 +63,9 @@ jobs:
     - name: Update yamls
       working-directory: Part4/project/manifests
       run: |-
-        ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:${{ github.sha }}
-        ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:${{ github.sha }}
-        ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster:${{ github.sha }}
+        ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project
+        ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend
+        ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster
 
     # Commit and push
     - uses: EndBug/add-and-commit@v5
