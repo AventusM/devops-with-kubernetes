@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths:
-      - './Part4/project/**'
-      - './Part4/project-backend/**'
-      - './Part4/project-broadcaster/**'
+      - 'Part4/project/**'
+      - 'Part4/project-backend/**'
+      - 'Part4/project-broadcaster/**'
       - '.github/workflows/project-gitops.yaml'
 
 jobs:
