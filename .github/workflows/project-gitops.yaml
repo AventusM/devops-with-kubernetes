@@ -61,7 +61,7 @@ jobs:
 
     # Update yamls
     - name: Update yamls
-      working-directory: Part4/project
+      working-directory: Part4/project/manifests
       run: |-
         ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:${{ github.sha }}
         ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:${{ github.sha }}

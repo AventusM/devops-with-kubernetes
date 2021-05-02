@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - Part4/project/manifests/deployment.yaml
+  - Part4/project/manifests/ingress.yaml
+  - Part4/project/manifests/namespace-course-exercises.yaml
+  - Part4/project/manifests/persistentvolume.yaml
+  - Part4/project/manifests/persistentvolumeclaim.yaml
+  - Part4/project/manifests/sealedsecret-postgres.yaml
+  - Part4/project/manifests/sealedsecret-telegram.yaml
+  - Part4/project/manifests/postgres-statefulset.yaml
+  - Part4/project/manifests/service.yaml
+
+images:
+  - name: PROJECT/GATEWAYIMAGE
+    newName: aventusm/kube-node-project
+  - name: PROJECT/BACKENDIMAGE
+    newName: aventusm/kube-node-project-backend
+  - name: PROJECT/BROADCASTERIMAGE
+    newName: aventusm/kube-node-project-broadcaster
