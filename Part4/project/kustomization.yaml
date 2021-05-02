@@ -2,13 +2,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - manifests/sealedsecret-postgres.yaml
+  - manifests/sealedsecret-telegram.yaml
+  - manifests/deployment-broadcaster.yaml
   - manifests/deployment.yaml
   - manifests/ingress.yaml
   - manifests/namespace-course-exercises.yaml
   - manifests/persistentvolume.yaml
   - manifests/persistentvolumeclaim.yaml
-  - manifests/sealedsecret-postgres.yaml
-  - manifests/sealedsecret-telegram.yaml
   - manifests/postgres-statefulset.yaml
   - manifests/service.yaml
 

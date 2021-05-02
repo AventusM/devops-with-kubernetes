@@ -10,11 +10,7 @@ const directory = path.join('public');
 const imageFilePath = path.join(directory, 'picsum.jpg');
 const lastUpdatedFilePath = path.join(directory, 'lastupdated.txt');
 const IMAGE_URL = 'https://picsum.photos/1200';
-const NAMESPACE_URL =
-  process.env.DEPLOYMENT_POD_NAMESPACE === 'default'
-    ? ''
-    : `.${process.env.DEPLOYMENT_POD_NAMESPACE}`; // Notice the dot requirement with non-default namespace
-const TODO_BACKEND_BASEURL = `http://kube-node-service${NAMESPACE_URL}:2346`; // GKE requires the full url with the path.
+const TODO_BACKEND_BASEURL = `http://kube-node-service:2346`; // GKE requires the full url with the path.
 
 const todaysFileAlreadyExists = async () =>
   new Promise((res) => {
