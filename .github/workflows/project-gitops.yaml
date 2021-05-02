@@ -24,7 +24,7 @@ jobs:
         repository: aventusm/kube-node-project
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: latest
+        tags: ${{ github.sha }}
         path: Part4/project
 
     - name: Publish backend
@@ -33,7 +33,7 @@ jobs:
         repository: aventusm/kube-node-project-backend
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: latest
+        tags: ${{ github.sha }}
         path: Part4/project-backend
 
     - name: Publish broadcaster
@@ -42,7 +42,7 @@ jobs:
         repository: aventusm/kube-node-project-broadcaster
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: latest
+        tags: ${{ github.sha }}
         path: Part4/project-broadcaster
 
   deploy:
@@ -63,9 +63,9 @@ jobs:
     - name: Update yamls
       working-directory: Part4/project/manifests
       run: |-
-        ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:latest
-        ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:latest
-        ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster:latest
+        ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:${{ github.sha }}
+        ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:${{ github.sha }}
+        ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster:${{ github.sha }}
 
     # Commit and push
     - uses: EndBug/add-and-commit@v5
