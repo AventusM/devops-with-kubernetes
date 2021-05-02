@@ -63,6 +63,10 @@ jobs:
     - name: Update yamls
       working-directory: Part4/project/manifests
       run: |-
+        kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+        kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+
+        ./kustomize edit set namespace ${GITHUB_REF#refs/heads/}
         ./kustomize edit set image PROJECT/GATEWAYIMAGE=aventusm/kube-node-project:${{ github.sha }}
         ./kustomize edit set image PROJECT/BACKENDIMAGE=aventusm/kube-node-project-backend:${{ github.sha }}
         ./kustomize edit set image PROJECT/BROADCASTERIMAGE=aventusm/kube-node-project-broadcaster:${{ github.sha }}
