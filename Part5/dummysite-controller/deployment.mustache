@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{{ deployment_name }}}
+  labels:
+    target: "{{{ dummysite_app_name }}}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{{ dummysite_app_name }}}
+  template:
+    metadata:
+      labels:
+        app: {{{ dummysite_app_name }}}
+    spec:
+      containers:
+      - name: {{{ dummysite_app_name }}}
+        image: {{{ image }}}
+        env:
+          - name: website_url
+            value: {{{ website_url }}}

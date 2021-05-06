@@ -1,0 +1,23 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dummysite-controller-role
+rules:
+- apiGroups: [""] # /api/v1/... --> No apiGroup to add
+  # at the HTTP level, the name of the resource for accessing Pod / Service
+  # objects is "pods" / "services"
+  resources: ["pods", "services"]
+  verbs: ["get", "list", "create"]
+- apiGroups: ["apps"] # /apis/APPS/...
+  # at the HTTP level, the name of the resource for accessing Deployment
+  # objects is "deployments"
+  resources: ["deployments"]
+  verbs: ["get", "list", "create"]
+- apiGroups: ["extensions"] # /apis/EXTENSIONS/v1beta1/namespaces/{namespace}/ingresses. Also can be found from ingress.yaml files from this course
+  # at the HTTP level, the name of the resource for accessing Ingress
+  # objects is "ingresses"
+  resources: ["ingresses"]
+  verbs: ["get", "list", "create"]
+- apiGroups: ["stable.dwk"]
+  resources: ["dummysites"]
+  verbs: ["get", "list", "watch", "create", "delete"]
