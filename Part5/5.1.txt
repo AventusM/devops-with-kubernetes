@@ -1,0 +1,6 @@
+The app should fetch basic html response data (possibly not styles though, example.com worked well, however) and display it on localhost:8081.
+To run it, you should follow steps given in exercise 5.01 description
+
+Troubleshooting
+- apply resourcedefinition.yaml if applying dummysite fails.
+- re-create "test" namespace and set it to default as some namespaces are hardcoded to that
