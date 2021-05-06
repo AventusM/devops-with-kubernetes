@@ -1,0 +1,10 @@
+The following annotation was added to each deployment spec metadata
+
+1. project/manifests/deployment.yaml (each deployment)
+2. project/manifests/postgres-statefulset.yaml (statefulset)
+
+- metadata:
+   annotations:
+     linkerd.io/inject: enabled
+
+--> you can then simply run "kubectl apply -k ." in project "root"
