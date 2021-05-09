@@ -1,0 +1,8 @@
+Rancher advantages comparison with OpenShift
+- Installation is considerably shorter (hours to single days, compared to ~ week reports on OpenShift).
+- Uses tooling from CNCF (cloud native computing foundation) vs more proprietary approach from OpenShift.
+- Completely open source vs community version only on OpenShift.
+- Capable of running kubernetes anywhere.
+- More current kubernetes version in general (max 1 version back vs OpenShift following up to 3 versions back).
+- No vendor lock-in --> switching from managed to vanilla kubernetes is possible.
+- Not an IBM product, although it means that Rancher lacks in partner ecosystem and bundle options (OpenShift can look attractive from a cost standpoint).
