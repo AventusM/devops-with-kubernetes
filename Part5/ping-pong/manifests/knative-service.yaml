@@ -1,0 +1,25 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ping-pong-knative
+spec:
+  template:
+    metadata:
+      name: ping-pong-knative-v1
+    spec:
+      containers:
+          - image: aventusm/ping-pong-knative
+            envFrom:
+            - secretRef:
+                name: postgres-credentials
+            resources:
+              limits:
+                cpu: "100m"
+                memory: "50Mi"
+            readinessProbe:
+              httpGet:
+                path: /healthz
+              initialDelaySeconds: 3
+              periodSeconds: 5
+              failureThreshold: 3
+              timeoutSeconds: 60

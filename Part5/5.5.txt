@@ -1,0 +1,9 @@
+In order to run the knative service version, the cluster should be created per part 5/4 instructions
+- (https://devopswithkubernetes.com/part-5/4-beyond-kubernetes)
+
+Then
+- run: kubectl apply -f ping-pong/manifests
+- run: kubectl get ksvc
+
+To access root "/", run: curl -H "Host: ping-pong-knative.default.example.com" http://localhost:8081
+To increase counter "/increase", run: curl -H "Host: ping-pong-knative.default.example.com" http://localhost:8081/increase (and revisit root to see the updated counter status)
