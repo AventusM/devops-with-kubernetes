@@ -1,0 +1,60 @@
+DATABASE
+- mongoDB (used in other projects)
+- mySQL (used in other projects & work)
+- postgreSQL (used in this course in main project and ping-pong application & other projects)
+- redis (used in this course in material example & other projects)
+
+STREAMING AND MESSAGING
+- NATS (used in this course to enchance project to communicate via non-HTTP way and)
+- Apache spark (used in other course)
+- Apache kafka (used in other course)
+
+APPLICATION DEFINITION & IMAGE BUILD
+- Bitnami (used in this course with sealed secrets)
+- Docker compose (used in courses (this also) to run web applications consisting of docker images)
+- Skaffold (used outside this course on a work project)
+
+CONTINOUS INTEGRATION & DELIVERY
+- Argo (used in the last two parts of the course to display the canary release possibility)
+- Flagger (used in this course with Linkerd in automating canary releases)
+- Flux (used in this course to showcase GitOps)
+- CircleCI (used outside this course)
+- GitHub actions (used in parts of this course, specifically GitOps. Additionally used in other courses)
+- GitLab (used in work)
+- Google cloud build (used indirectly in part 3)
+- Travis CI (used outside this course)
+
+PLATFORM
+- Docker (used to build Dockerfiles in courses (this included) and work)
+- Rancher (running k3d in this course)
+- Google kubernetes engine (used in this course to run applications and projects there, introduced in part 3)
+- Google cloud (installer) (used to install required things to run google kubernetes engine)
+- Heroku (used in other courses and personal projects)
+
+OBSERVABILITY AND ANALYSIS
+- Prometheus (used in this course to monitor the cluster, introduced in part 2)
+- Google stackdriver (used in this course in part 3 to monitor and display logs)
+- Grafana (used in this course starting from part 2 to view data provided by prometheus)
+
+LOGGING
+- Grafana loki (used in this course to observe data further from Grafana)
+
+SCHEDULING AND ORCHESTRATION
+- Kubernetes (used everywhere in this course...)
+
+SERVICE PROXY
+- Contour (used in the 5th part as an alternative to traefik)
+- Traefik (used in this course through rancher k3d)
+
+SERVICE MESH
+- Linkerd (used in the 5th part to showcase baked-in functionalities ranging from canary releases to monitoring solutions)
+
+CLOUD NATIVE STORAGE
+- Google persistent disk (used in the 3rd part as the Google kubernetes engine equivalent to PersistentVolume)
+
+CONTAINER REGISTRY
+- Docker registry (used in this course and in other projects to host docker images)
+- Google container registry (used in this courses 3rd part to host docker images within google's own service)
+
+KUBERNETES SERVICE PROVIDER
+- Gitlab (used in a work project related to kubernetes)
