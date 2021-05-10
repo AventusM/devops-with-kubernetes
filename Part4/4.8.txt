@@ -1,0 +1,6 @@
+1. Flux bootstrap (per 4.7 instructions, no more manual NATS setup required as the cluster repository takes care of that)
+2. git clone https://github.com/AventusM/gitops-project (moved to separate repository for the automatic local update to work much easier)
+
+NOTE: You should have the original secrets available as they are required for SealedSecrets to be decrypted it seems
+
+--> The application should update automatically after a small delay when pushing new changes.
